@@ -86,7 +86,8 @@ OLLAMA_FLASH_ATTENTION=1
 OLLAMA_KV_CACHE_TYPE=q8_0
 OLLAMA_NUM_PARALLEL=1
 ```
-
 Flash Attention can significantly reduce memory use as context grows. Ollama documents `q8_0` KV cache as using approximately half the memory of `f16` with a small precision impact. `OLLAMA_NUM_PARALLEL=1` prevents concurrent requests from multiplying the effective context allocation.
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **_Made with ❤️ by Mukunth P.R_**
