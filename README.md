@@ -14,10 +14,15 @@ The Modelfile keeps the base weights unchanged and adds:
 - Thinking enabled through Gemma 4's `<|think|>` system control token.
 
 Gemma 4 E4B itself supports a 128K context window. The 32K Modelfile default is deliberate: context size has a direct memory cost, so a portable public model should not force 128K on every computer.
+## Download from ollama:
+```
+ollama run mukunthpr/gemma4-e4b-code
+```
+Then skip to the adaptive runtime section
 
 ## Build from an existing local Gemma 4 E4B
 
-The user already has the base model, so no download is required:
+, so no download is required:
 
 ```bash
 ollama create gemma4-e4b-code -f Modelfile
