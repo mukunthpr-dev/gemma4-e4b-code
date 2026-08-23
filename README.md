@@ -39,7 +39,7 @@ ollama ps
 
 ## Adaptive macOS runtime
 
-The included `run-gemma4-code-mac.sh` is a runtime launcher for the **single canonical model**. It does not create a second `-auto` model.
+The included `run-gemma4-code-mac.sh` is a runtime launcher for the model to tune it to your system specifications
 
 Run it locally with:
 
@@ -88,52 +88,5 @@ OLLAMA_NUM_PARALLEL=1
 ```
 
 Flash Attention can significantly reduce memory use as context grows. Ollama documents `q8_0` KV cache as using approximately half the memory of `f16` with a small precision impact. `OLLAMA_NUM_PARALLEL=1` prevents concurrent requests from multiplying the effective context allocation.
-
-There is no supported "hidden RAM" switch for Apple Silicon. Mac unified memory is shared by macOS, applications, CPU, and GPU workloads; Ollama cannot reserve an invisible extra pool.
-
-## Recommended 16 GB Mac profile
-
-For a 16 GB MacBook Pro, the intended starting point is:
-
-- 32K context.
-- 16K maximum output.
-- Flash Attention enabled.
-- `q8_0` KV cache.
-- One parallel request.
-
-The model can still be pushed toward 128K manually, but that is a workload-specific choice rather than a safe universal default.
-
-## Why the runner creates another model name
-
-Ollama's persistent model parameters are defined by the Modelfile. A static published Modelfile cannot inspect each user's free memory and rewrite `num_ctx` at runtime.
-
-The runner therefore creates a lightweight local profile called `gemma4-e4b-code-auto` from the already-built coder model and gives that profile the context size selected for the current Mac.
-
-This does not require downloading Gemma 4 again.
-
-## Publishing to the Ollama model library
-
-Before publishing, replace any placeholder author/description metadata with your chosen public model name and README text. The public description should clearly say that the model is an Ollama derivative of Gemma 4 E4B and should retain the applicable upstream Gemma terms/attribution.
-
-Recommended public positioning:
-
-> Gemma 4 E4B optimized as a local coding assistant for Ollama, with coding-focused instructions, long-context defaults, and a macOS adaptive runner for unified-memory systems.
-
-Do not claim that the model has been fine-tuned unless you actually performed a weight-level fine-tune. This release is a prompt/parameter derivative of the existing Gemma 4 E4B model.
-
-For reproducibility, publish the exact Modelfile alongside the model description. Keep the adaptive shell runner as an optional companion; the published model itself should remain portable.
-
-## Suggested release checklist
-
-- [ ] Build `gemma4-e4b-code` locally from the exact released Modelfile.
-- [ ] Test coding, debugging, refactoring, test-writing, and long-file tasks.
-- [ ] Test a 16 GB Mac with the adaptive runner.
-- [ ] Verify `ollama ps` and confirm the intended processor placement.
-- [ ] Confirm the runner works with the published model name.
-- [ ] State clearly that this is an instruction/parameter derivative, not a fine-tuned weight release.
-- [ ] Include Gemma attribution/license requirements applicable to the release.
-- [ ] Publish the exact Modelfile and release notes used to build the model.
-
-## Important performance note
-
-Longer context does not automatically mean better coding performance. For an E4B edge model, a smaller context can be faster and leave more memory headroom, while larger context is valuable for whole-repository reasoning, logs, long specifications, and large refactors. The adaptive runner is designed to balance those tradeoffs instead of forcing the maximum context on every machine.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**_Made with ❤️ by Mukunth P.R_**
