@@ -20,7 +20,7 @@ ollama pull mukunthpr/gemma4-e4b-code
 ```
 **Then skip to the adaptive runtime section**
 
-## Build fromGemma 4 E4B
+## Build from Gemma 4 E4B
 
 
 
